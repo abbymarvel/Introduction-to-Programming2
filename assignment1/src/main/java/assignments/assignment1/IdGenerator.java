@@ -123,7 +123,9 @@ public class IdGenerator {
      * Parameter dan return type dari method ini tidak boleh diganti
      */
     public static boolean checkValidity(String idAnggota) {
-        if (idAnggota.length() != 13) {         // Memastikan idAnggota memiliki 13 char
+        // Memastikan idAnggota memiliki 13 char dan hanya terdiri dari uppercase
+        System.out.println(idAnggota.substring(0,13));
+        if (!idAnggota.matches("[A-Z]{3}[0-9]{8}[A-Z0-9]{2}")) {
             return false;
         }
         int j = 11;
