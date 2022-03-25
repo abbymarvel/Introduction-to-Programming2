@@ -21,10 +21,6 @@ public class Book {
         this.category = category;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public String getTitle() {
         return title;
     }
