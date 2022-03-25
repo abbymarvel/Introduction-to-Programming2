@@ -88,33 +88,36 @@ public class IdGenerator {
         // Beberapa line dibawah ini untuk melakukan validasi input (if statement)
         String[] prodi = {"SIK", "SSI", "MIK", "MTI", "DIK"};
         if (angkatan.length() != 4 || !Arrays.asList(prodi).contains(programStudi)
-            || 2000 >= Integer.parseInt(angkatan) || Integer.parseInt(angkatan) > 2021
-                || !tanggalLahir.matches("[0-9]{2}/[0-9]{2}/[0-9]{4}")) {
+            || !tanggalLahir.matches("[0-9]{2}/[0-9]{2}/[0-9]{4}")) {
             return "Input tidak valid!";
         }
+        String id = "";
 
-        // Menyiapkan 11 char pertama untuk menghitung Checksum C dan Checksum K
-        String id = programStudi + angkatan.substring(2,4) + tanggalLahir.substring(0,2)
-                + tanggalLahir.substring(3,5) + tanggalLahir.substring(8,10);
+        if (Integer.parseInt(angkatan) >= 2000 && Integer.parseInt(angkatan) <= 2021){
+            // Menyiapkan 11 char pertama untuk menghitung Checksum C dan Checksum K
+            id = programStudi + angkatan.substring(2,4) + tanggalLahir.substring(0,2)
+                    + tanggalLahir.substring(3,5) + tanggalLahir.substring(8,10);
 
-        int j = 11;
-        int c = 0;
-        for (int i = 0, n = id.length(); i < n; i++, j--) {         // For loop digunakan untuk menghitung Checksum C
-            c += (getValueFromChar(id.charAt(i)) * j);
+            int j = 11;
+            int c = 0;
+            for (int i = 0, n = id.length(); i < n; i++, j--) {         // For loop digunakan untuk menghitung Checksum C
+                c += (getValueFromChar(id.charAt(i)) * j);
+            }
+            c %= 36;
+            char checkSumC = getCharFromValue(c);
+            id += checkSumC;
+
+            int y = 12;
+            int k = 0;
+            for (int x = 0, n = id.length(); x < n; x++, y--) {         // For loop digunakan untuk menghitung Checksum K
+                k += (getValueFromChar(id.charAt(x)) * y);
+            }
+            k %= 36;
+            char checkSumK = getCharFromValue(k);
+            id += checkSumK;
+        }else {
+            return "Input tidak valid!";
         }
-        c %= 36;
-        char checkSumC = getCharFromValue(c);
-        id += checkSumC;
-
-        int y = 12;
-        int k = 0;
-        for (int x = 0, n = id.length(); x < n; x++, y--) {         // For loop digunakan untuk menghitung Checksum K
-            k += (getValueFromChar(id.charAt(x)) * y);
-        }
-        k %= 36;
-        char checkSumK = getCharFromValue(k);
-        id += checkSumK;
-
         return "ID Anggota: " + id;
     }
 
@@ -124,7 +127,6 @@ public class IdGenerator {
      */
     public static boolean checkValidity(String idAnggota) {
         // Memastikan idAnggota memiliki 13 char dan hanya terdiri dari uppercase
-        System.out.println(idAnggota.substring(0,13));
         if (!idAnggota.matches("[A-Z]{3}[0-9]{8}[A-Z0-9]{2}")) {
             return false;
         }
