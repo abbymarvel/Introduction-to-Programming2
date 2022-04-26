@@ -23,11 +23,9 @@ public class SistakaNG {
         String[] listNama = new String[]{"Dek Depe", "Dek DePram", "Dek Sofita", "Winter", "Boo"};
 
         for (int i = 0; i < listNama.length; i++) {
-            // TODO: Buat objek Staf menggunakan listNama[i]
-
-            // TODO: Setelah objek Staf behasil dibuat, uncomment 2 baris kode di bawah ini
-            // System.out.println("Berhasil menambahkan staf dengan data:");
-            // System.out.println(staf);
+            Staf staf = new Staf("STAF-" + (i+1), listNama[i]);
+            System.out.println("Berhasil menambahkan staf dengan data:");
+            System.out.println(staf);
         }
     }
 
