@@ -84,6 +84,7 @@ public class IdGenerator {
      * Parameter dan return type dari method ini tidak boleh diganti
      */
     public static String generateId(String programStudi, String angkatan, String tanggalLahir){
+        buildMapCharToValue();
         if (!isValidProgramStudi(programStudi)) return "Input tidak valid!";
 
         String angkatanCode = checkAndGetAngkatanCode(angkatan);

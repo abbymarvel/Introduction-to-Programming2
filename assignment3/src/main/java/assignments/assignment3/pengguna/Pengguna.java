@@ -12,6 +12,10 @@ public abstract class Pengguna {
     protected abstract String generateId();
     public abstract String toString();
 
+    public void setId(String id){
+        this.id = id;
+    }
+
     public String getId() {
         return id;
     }

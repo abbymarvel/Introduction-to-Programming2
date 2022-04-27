@@ -5,25 +5,28 @@ import assignments.assignment3.buku.Buku;
 import assignments.assignment3.buku.Peminjaman;
 
 public class Mahasiswa extends Anggota{
-    private final int BATAS_JUMLAH_PEMINJAMAN_BUKU = 3;
-    private final long BATAS_MAKSIMAL_DENDA = 5000;
+    public final int BATAS_JUMLAH_PEMINJAMAN_BUKU = 3;
+    public final long BATAS_MAKSIMAL_DENDA = 5000;
     private String tanggalLahir;
     private String programStudi;
     private String angkatan;
 
-    Mahasiswa(String id, String nama, long denda, int poin, Peminjaman[] daftarPeminjaman, String tanggalLahir, String programStudi, String angkatan){
-        super(id, nama, denda, poin, daftarPeminjaman);
+    public Mahasiswa(String id, String nama, long denda, int poin, String tanggalLahir, String programStudi, String angkatan){
+        super(id, nama, denda, poin);
         this.tanggalLahir = tanggalLahir;
         this.programStudi = programStudi;
         this.angkatan = angkatan;
+        generateId();
     }
 
     @Override
-    public String generateId() {
-        return IdGenerator.generateId(programStudi, angkatan, tanggalLahir);
+    protected String generateId() {
+        String id = IdGenerator.generateId(programStudi, angkatan, tanggalLahir);
+        setId(id);
+        return id;
     }
 
-    String pinjam(Buku buku, String tanggalPeminjaman){
+    public String pinjam(Buku buku, String tanggalPeminjaman){
         Peminjaman[] daftarPeminjaman = getDaftarPeminjaman();
         Peminjaman[] tempArr = new Peminjaman[daftarPeminjaman.length + 1];
         for (int i = 0; i < daftarPeminjaman.length; i++) {

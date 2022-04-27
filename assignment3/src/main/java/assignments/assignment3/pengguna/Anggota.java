@@ -13,27 +13,32 @@ public abstract class Anggota extends Pengguna implements Comparable <Anggota>{
     protected int poin;
     protected Peminjaman[] daftarPeminjaman;
     
-    Anggota (String id, String nama, long denda, int poin, Peminjaman[] daftarPeminjaman){
+    public Anggota (String id, String nama, long denda, int poin){
         super(id, nama);
         this.denda = denda;
         this.poin = poin;
-        this.daftarPeminjaman = daftarPeminjaman;
     }
 
     @Override
     public int compareTo(Anggota other) {
-        return this.poin - other.poin;
+        if (this.poin > other.getPoin()){
+            return 1;
+        } else if (this.poin < other.getPoin()){
+            return -1;
+        } else {
+            return 0;
+        }
     } //https://www.codejava.net/java-core/collections/sorting-arrays-examples-with-comparable-and-comparator#:~:text=Sorting%20an%20array%20of%20Objects&text=The%20natural%20ordering%20is%20defined,%3E%20obj2%20if%20x%20%3E%200.
 
     @Override
     public String toString() {
         return "ID Anggota: " + getId()
-                + "Nama Anggota: " + getNama()
-                + "Total poin: " + poin
-                + "Denda: " + denda;
+                + "\nNama Anggota: " + getNama()
+                + "\nTotal poin: " + poin
+                + "\nDenda: " + denda;
     }
 
-    void detail() {
+    public void detail() {
         if (daftarPeminjaman != null) {
             for (int h = 1; h < daftarPeminjaman.length+1; h++) {
                 for (int i = 0; i < daftarPeminjaman.length; i++) {
@@ -55,7 +60,7 @@ public abstract class Anggota extends Pengguna implements Comparable <Anggota>{
         }
     }
 
-    String bayarDenda(long jumlahBayar){
+    public String bayarDenda(long jumlahBayar){
         if (denda==0){
             return getNama() + "tidak memiliki denda";
         }else if (jumlahBayar>denda){
@@ -70,7 +75,7 @@ public abstract class Anggota extends Pengguna implements Comparable <Anggota>{
         }
     }
 
-    String kembali(Buku buku, String tanggalPengembalian){
+    public String kembali(Buku buku, String tanggalPengembalian){
         String loanDate = "";
         int indexLoanBook = 0;
         for (int j = 0; j<daftarPeminjaman.length; j++){
@@ -105,6 +110,7 @@ public abstract class Anggota extends Pengguna implements Comparable <Anggota>{
                     e.printStackTrace();
                 }
             }
+            
         }
         return "Buku " + daftarPeminjaman[indexLoanBook].getBuku().getJudul() + " tidak sedang dipinjam oleh " + getNama();
     }
@@ -119,6 +125,10 @@ public abstract class Anggota extends Pengguna implements Comparable <Anggota>{
 
     void setPoin(int poin) {
         this.poin = poin;
+    }
+
+    int getPoin(){
+        return poin;
     }
     
     public Peminjaman[] getDaftarPeminjaman(){

@@ -4,20 +4,23 @@ import assignments.assignment3.buku.Buku;
 import assignments.assignment3.buku.Peminjaman;
 
 public class Dosen extends Anggota{
-    int jumlahDosen = 0;
-    int BATAS_JUMLAH_PEMINJAMAN_BUKU = 5;
-    long BATAS_MAKSIMAL_DENDA = 10000;
+    private int jumlahDosen = 0;
+    public int BATAS_JUMLAH_PEMINJAMAN_BUKU = 5;
+    public long BATAS_MAKSIMAL_DENDA = 10000;
     
-    Dosen(String id, String nama, long denda, int poin, Peminjaman[] daftarPeminjaman){
-        super(id, nama, denda, poin, daftarPeminjaman);
+    public Dosen(String id, String nama, long denda, int poin){
+        super(id, nama, denda, poin);
+        generateId();
     }
 
     @Override
-    public String generateId(){
-        return "Dosen-" + jumlahDosen;
+    protected String generateId(){
+        String id = "Dosen-" + ++jumlahDosen;
+        setId(id);
+        return id;
     }
 
-    String pinjam(Buku buku, String tanggalPeminjaman){
+    public String pinjam(Buku buku, String tanggalPeminjaman){
         Peminjaman[] daftarPeminjaman = getDaftarPeminjaman();
         Peminjaman[] tempArr = new Peminjaman[daftarPeminjaman.length + 1];
         for (int i = 0; i < daftarPeminjaman.length; i++) {

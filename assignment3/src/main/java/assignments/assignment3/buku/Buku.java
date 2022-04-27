@@ -20,12 +20,11 @@ public class Buku{
                 + "\nPoin: " + kategori.getPoin();
     }
 
-    public Buku(String judul, String penulis, String penerbit, int stokAwal, int stok, Kategori kategori){
+    public Buku(String judul, String penulis, String penerbit, int stokAwal, Kategori kategori){
         this.judul = judul;
         this.penulis = penulis;
         this.penerbit = penerbit;
         this.stokAwal = stokAwal;
-        this.stok = stok;
         this.kategori = kategori;
     }
 
