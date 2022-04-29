@@ -20,22 +20,24 @@ public class Dosen extends Anggota{
     }
 
     public String pinjam(Buku buku, String tanggalPeminjaman){
-        if (daftarPeminjaman == null){
-            daftarPeminjaman = new Peminjaman[1];
-            daftarPeminjaman[0] = new Peminjaman(this, buku, tanggalPeminjaman, "-", getDenda(), true);
-        }
-        Peminjaman[] tempArr = new Peminjaman[daftarPeminjaman.length + 1];
-        for (int i = 0; i < daftarPeminjaman.length; i++) {
-            tempArr[i] = daftarPeminjaman[i];
+        if (this.getDenda()<=BATAS_MAKSIMAL_DENDA){
+            if (daftarPeminjaman == null){
+                daftarPeminjaman = new Peminjaman[1];
+                daftarPeminjaman[0] = new Peminjaman(this, buku, tanggalPeminjaman, "-", getDenda(), true);
+            }
+            Peminjaman[] tempArr = new Peminjaman[daftarPeminjaman.length + 1];
+            for (int i = 0; i < daftarPeminjaman.length; i++) {
+                tempArr[i] = daftarPeminjaman[i];
+                buku.setStok(buku.getStok() - 1);
+                return getNama() + " berhasil meminjam Buku " + buku.getJudul() + "!";
+            }
+            daftarPeminjaman = tempArr;
+            daftarPeminjaman[daftarPeminjaman.length - 1] = new Peminjaman(this, buku, tanggalPeminjaman, "-", getDenda(), true);
             buku.setStok(buku.getStok() - 1);
-            Buku.tambahPeminjam(this);
             return getNama() + " berhasil meminjam Buku " + buku.getJudul() + "!";
+        } else{
+            return "Denda lebih dari Rp " + BATAS_MAKSIMAL_DENDA;
         }
-        daftarPeminjaman = tempArr;
-        daftarPeminjaman[daftarPeminjaman.length - 1] = new Peminjaman(this, buku, tanggalPeminjaman, "-", getDenda(), true);
-        buku.setStok(buku.getStok() - 1);
-        Buku.tambahPeminjam(this);
-        return getNama() + " berhasil meminjam Buku " + buku.getJudul() + "!";
     }
 
     public long getBATAS_MAKSIMAL_DENDA() {

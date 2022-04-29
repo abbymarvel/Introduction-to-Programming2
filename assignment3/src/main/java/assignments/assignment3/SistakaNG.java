@@ -9,11 +9,8 @@ import assignments.assignment3.pengguna.Mahasiswa;
 import assignments.assignment3.pengguna.Pengguna;
 import assignments.assignment3.pengguna.Staf;
 
-import java.time.temporal.JulianFields;
 import java.util.Arrays;
 import java.util.Scanner;
-
-import javax.lang.model.element.Element;
 
 public class SistakaNG {
     private static Scanner input = new Scanner(System.in);
@@ -239,7 +236,7 @@ public class SistakaNG {
                 }
                 if (daftarbuku != null){
                     for (int i = 0; i < daftarbuku.length; i++) {
-                        if (daftarbuku[i].getJudul().equalsIgnoreCase(judul)) {
+                        if (daftarbuku[i].getJudul().equalsIgnoreCase(judul) && daftarbuku[i].getPenulis().equalsIgnoreCase(penulis)) {
                             statusTitle = false;
                         }
                     }
@@ -341,17 +338,20 @@ public class SistakaNG {
                 boolean statusAnggota;
                 int indexMember = 0;
                 if (daftarAnggota != null){
-                    for (int i = 0; i < daftarAnggota.length; i++) {
-                        if (daftarAnggota[i].getId().equalsIgnoreCase(IDAnggota)) {
-                            System.out.println(daftarAnggota[indexMember].toString());
-                            System.out.println("Riwayat Peminjaman Buku :");
-                            daftarAnggota[indexMember].detail();
-                            statusAnggota = true;
+                    if (IDAnggota.length()==13){
+                        for (int i = 0; i < daftarAnggota.length; i++) {
+                            if (daftarAnggota[i].getId().equals(IDAnggota)) {
+                                System.out.println(daftarAnggota[indexMember].toString());
+                                daftarAnggota[indexMember].detail();
+                                statusAnggota = true;
+                            }
                         }
+                            if (statusAnggota = false){
+                                System.out.println("Anggota dengan ID " + IDAnggota + " tidak ditemukan");
+                            }
+                    } else{
+                        System.out.println("Anggota dengan ID " + IDAnggota + " tidak ditemukan");
                     }
-                        if (statusAnggota = false){
-                            System.out.println("Anggota dengan ID " + IDAnggota + " tidak ditemukan");
-                        }
                 } else {
                     System.out.println("Anggota dengan ID " + IDAnggota + " tidak ditemukan");
                 }
@@ -365,13 +365,14 @@ public class SistakaNG {
                 boolean statusKeberadaan = false;
                 for (int i = 0; i < daftarbuku.length; i++) {
                     if (daftarbuku[i].getJudul().equalsIgnoreCase(judul) && daftarbuku[i].getPenulis().equalsIgnoreCase(penulis)) {
+                        Buku buku = daftarbuku[i];
                         statusKeberadaan = true;
-                        if (daftarbuku[i].getDaftarPeminjam() != null){
+                        if (buku.getDaftarPeminjam() != null){
                             System.out.println(daftarbuku[i]);
                             System.out.println("---------- Daftar Peminjam ----------");
                             for (int j = 0; j < daftarbuku[i].getDaftarPeminjam().length; j++){
-                                System.out.println("-----------------" + j+1 + "-----------------");
-                                System.out.print(daftarbuku[i].getDaftarPeminjam()[j]);
+                                System.out.println("-----------------" + (j+1) + "-----------------");
+                                System.out.print(daftarbuku[i].getDaftarPeminjam()[j] + "\n");
                             }
                         } else{
                             System.out.println(daftarbuku[i]);
@@ -416,18 +417,46 @@ public class SistakaNG {
                 String penulis = input.nextLine();
                 System.out.print("Tanggal Peminjaman: ");
                 String tanggalPeminjaman = input.nextLine();
-                if (daftarbuku==null || daftarbuku.length==0){
-                    System.out.println("Buku " + judul + " oleh " + penulis + " tidak ditemukan");
-                }else {
-                    for (int i = 0; i < daftarbuku.length; i++) {
-                        if (daftarbuku[i].getJudul().equalsIgnoreCase(judul) && daftarbuku[i].getPenulis().equalsIgnoreCase(penulis)) {
-                            Buku buku = daftarbuku[i];
-                            if (buku.getStok() > 0) {
-                                System.out.println(((Anggota) penggunaLoggedIn).pinjam(buku, tanggalPeminjaman));
-                            } else {
-                                System.out.println("Buku " + judul + " oleh " + penulis + " tidak tersedia");
+                int jumlahMeminjam=0;
+                boolean statusKeberadaan = false;
+                boolean statusDiPinjam = false;
+                if (((Anggota) penggunaLoggedIn).getDaftarPeminjaman()!= null){
+                    for (Peminjaman pmjmn : ((Anggota) penggunaLoggedIn).getDaftarPeminjaman()){
+                        if (pmjmn.getStatus()==true){
+                            jumlahMeminjam+=1;
+                        }
+                    }
+            }
+                if (jumlahMeminjam == 3){
+                    System.out.println("Jumlah buku yang sedang dipinjam sudah mencapai batas maksimal");
+                }else{
+                    if (daftarbuku==null || daftarbuku.length==0){
+                        System.out.println("Buku " + judul + " oleh " + penulis + " tidak ditemukan");
+                    }else {
+                        for (int i = 0; i < daftarbuku.length; i++) {
+                            if (daftarbuku[i].getJudul().equalsIgnoreCase(judul) && daftarbuku[i].getPenulis().equalsIgnoreCase(penulis)) {
+                                Buku buku = daftarbuku[i];
+                                if (buku.getStok() > 0) {
+                                    statusKeberadaan = true;
+                                    if (((Anggota) penggunaLoggedIn).getDaftarPeminjaman()!= null){
+                                        for (Peminjaman pmjmn : ((Anggota) penggunaLoggedIn).getDaftarPeminjaman()){
+                                            if (pmjmn.getBuku().equals(buku) && pmjmn.getStatus()==true){
+                                                statusDiPinjam = true;
+                                            }
+                                        }
+                                    }
+                                    if (statusDiPinjam==false){
+                                        System.out.println(((Anggota) penggunaLoggedIn).pinjam(buku, tanggalPeminjaman));
+                                    } else{
+                                        statusKeberadaan = true;
+                                        System.out.println("Buku " + judul + " oleh " + penulis + " sedang dipinjam");
+                                    }
+                                } else {
+                                    System.out.println("Buku " + judul + " oleh " + penulis + " tidak tersedia");
+                                }
                             }
-                        } else {
+                        }
+                        if (statusKeberadaan == false) {
                             System.out.println("Buku " + judul + " oleh " + penulis + " tidak ditemukan");
                         }
                     }
@@ -441,13 +470,16 @@ public class SistakaNG {
                 String penulis = input.nextLine();
                 System.out.print("Tanggal Pengembalian: ");
                 String tanggalPengembalian = input.nextLine();
+                boolean statusKeberadaan = false;
                 for (int i = 0; i < daftarbuku.length; i++) {
                     if (daftarbuku[i].getJudul().equalsIgnoreCase(judul) && daftarbuku[i].getPenulis().equalsIgnoreCase(penulis)) {
                         Buku buku = daftarbuku[i];
+                        statusKeberadaan = true;
                         System.out.println(((Anggota) penggunaLoggedIn).kembali(buku, tanggalPengembalian));
-                    } else {
-                        System.out.println("Buku " + judul + " oleh " + penulis + " tidak ditemukan");
                     }
+                }
+                if (statusKeberadaan == false) {
+                    System.out.println("Buku " + judul + " oleh " + penulis + " tidak ditemukan");
                 }
             } else if (command == 3) {
                 // TODO: Implementasikan menu-nya

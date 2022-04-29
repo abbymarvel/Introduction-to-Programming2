@@ -6,7 +6,7 @@ public class Kategori {
 
     @Override
     public String toString() {
-        return "Kategori " + nama
+        return "Kategori: " + nama
                 + "\nPoin: " + poin;
     }
     public Kategori(String nama, int poin){

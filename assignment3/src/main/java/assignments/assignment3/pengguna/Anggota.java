@@ -1,10 +1,5 @@
 package assignments.assignment3.pengguna;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.concurrent.TimeUnit;
-
 import assignments.assignment3.buku.Buku;
 import assignments.assignment3.buku.Peminjaman;
 
@@ -22,11 +17,11 @@ public abstract class Anggota extends Pengguna implements Comparable <Anggota>, 
     @Override
     public int compareTo(Anggota other) {
         if (this.poin > other.getPoin()){
-            return 1;
+            return -2;
         } else if (this.poin < other.getPoin()){
-            return -1;
+            return 2;
         } else {
-            return 0;
+            return this.getNama().compareTo(other.getNama());
         }
     } //https://www.codejava.net/java-core/collections/sorting-arrays-examples-with-comparable-and-comparator#:~:text=Sorting%20an%20array%20of%20Objects&text=The%20natural%20ordering%20is%20defined,%3E%20obj2%20if%20x%20%3E%200.
 
@@ -41,21 +36,20 @@ public abstract class Anggota extends Pengguna implements Comparable <Anggota>, 
     public void detail() {
         System.out.println("Riwayat Peminjaman Buku:");
         if (daftarPeminjaman != null) {
-            for (int h = 1; h < daftarPeminjaman.length+1; h++) {
-                for (int i = 0; i < daftarPeminjaman.length; i++) {
-                    System.out.println("—------------- " + h + " —-------------");
-                    Buku buku = daftarPeminjaman[i].getBuku();
-                    System.out.println("Judul Buku: " + buku.getJudul());
-                    System.out.println("Penulis Buku: " + buku.getPenulis());
-                    System.out.println("Penerbit Buku: " + buku.getPenerbit());
-                    System.out.println("Kategori: " + buku.getKategori().getNama());
-                    System.out.println("Point: " + buku.getKategori().getPoin());
-                    System.out.println("Tanggal Peminjaman: " + daftarPeminjaman[i].getTanggalPeminjaman());
-                    System.out.println("Tanggal Pengembalian: " + daftarPeminjaman[i].getTanggalPengembalian());
-                    System.out.println("Denda: Rp " + daftarPeminjaman[i].getDenda());
+            int h=1;
+            for (int i = 0; i < daftarPeminjaman.length; i++) {
+                System.out.println("----------------- " + h++ + " -----------------");
+                Buku buku = daftarPeminjaman[i].getBuku();
+                System.out.println("Judul Buku: " + buku.getJudul());
+                System.out.println("Penulis Buku: " + buku.getPenulis());
+                System.out.println("Penerbit Buku: " + buku.getPenerbit());
+                System.out.println("Kategori: " + buku.getKategori().getNama());
+                System.out.println("Point: " + buku.getKategori().getPoin());
+                System.out.println("Tanggal Peminjaman: " + daftarPeminjaman[i].getTanggalPeminjaman());
+                System.out.println("Tanggal Pengembalian: " + daftarPeminjaman[i].getTanggalPengembalian());
+                System.out.println("Denda: Rp " + daftarPeminjaman[i].getDenda());
 
                 }
-            }
         }else{
             System.out.println("Belum pernah meminjam buku");
         }

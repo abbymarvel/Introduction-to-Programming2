@@ -10,7 +10,7 @@ public class Buku{
     private int stokAwal;
     private int stok;
     private Kategori kategori;
-    private static CanBorrow[] daftarPeminjam;
+    private CanBorrow[] daftarPeminjam;
 
     @Override
     public String toString() {
@@ -29,22 +29,21 @@ public class Buku{
         this.stok = stokAwal;
     }
 
-    public static void tambahPeminjam(Anggota peminjam){
+    public void tambahPeminjam(Anggota peminjam){
         if (daftarPeminjam==null){
-            CanBorrow[] dafarPeminjam = new CanBorrow[1];
-            dafarPeminjam[0] = (CanBorrow) peminjam;
+            this.daftarPeminjam = new CanBorrow[1];
+            this.daftarPeminjam[0] = peminjam;
         }else {
             CanBorrow[] tempArr = new CanBorrow[daftarPeminjam.length + 1];
-            for (int i = 0; i < daftarPeminjam.length; i++) {
-                tempArr[i] = daftarPeminjam[i];
+            for (int i = 0; i < this.daftarPeminjam.length; i++) {
+                tempArr[i] = this.daftarPeminjam[i];
             }
-            tempArr[daftarPeminjam.length] = peminjam;
-            daftarPeminjam = tempArr;
-            daftarPeminjam[daftarPeminjam.length - 1] = (CanBorrow) peminjam;
+            tempArr[tempArr.length-1] = peminjam;
+            this.daftarPeminjam = tempArr;
         }
     }
 
-    public static CanBorrow[] getDaftarPeminjam(){
+    public CanBorrow[] getDaftarPeminjam(){
         return daftarPeminjam;
     }
 

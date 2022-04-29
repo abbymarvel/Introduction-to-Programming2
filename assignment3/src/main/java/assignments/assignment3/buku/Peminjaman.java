@@ -31,6 +31,7 @@ public class Peminjaman {
         this.tanggalPengembalian = tanggalPengembalian;
         this.denda = denda;
         this.status = status;
+        buku.tambahPeminjam(anggota);
     }
 
     public long hitungDenda(){
