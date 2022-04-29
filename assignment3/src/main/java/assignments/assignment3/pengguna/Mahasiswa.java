@@ -11,38 +11,48 @@ public class Mahasiswa extends Anggota{
     private String programStudi;
     private String angkatan;
 
-    public Mahasiswa(String id, String nama, long denda, int poin, String tanggalLahir, String programStudi, String angkatan){
-        super(id, nama, denda, poin);
+    public Mahasiswa(String nama, long denda, int poin, String tanggalLahir, String programStudi, String angkatan){
+        super(nama, denda, poin);
         this.tanggalLahir = tanggalLahir;
         this.programStudi = programStudi;
         this.angkatan = angkatan;
-        generateId();
+        setId(generateId());
     }
 
     @Override
     protected String generateId() {
-        String id = IdGenerator.generateId(programStudi, angkatan, tanggalLahir);
-        setId(id);
-        return id;
+        return IdGenerator.generateId(getProgramStudi(), getAngkatan(), getTanggalLahir());
     }
 
     public String pinjam(Buku buku, String tanggalPeminjaman){
-        Peminjaman[] daftarPeminjaman = getDaftarPeminjaman();
-        Peminjaman[] tempArr = new Peminjaman[daftarPeminjaman.length + 1];
-        for (int i = 0; i < daftarPeminjaman.length; i++) {
-            tempArr[i] = daftarPeminjaman[i];
+        if (daftarPeminjaman==null){
+            daftarPeminjaman = new Peminjaman[1];
+            daftarPeminjaman[0] = new Peminjaman(this, buku, tanggalPeminjaman, "-", getDenda(), true);
+            buku.setStok(buku.getStok() - 1);
+            Buku.tambahPeminjam(this);
+            return getNama() + " berhasil meminjam Buku " + buku.getJudul() + "!";
+        }else {
+            Peminjaman[] tempArr = new Peminjaman[daftarPeminjaman.length + 1];
+            for (int i = 0; i < daftarPeminjaman.length; i++) {
+                tempArr[i] = daftarPeminjaman[i];
+            }
+            daftarPeminjaman = tempArr;
+            daftarPeminjaman[daftarPeminjaman.length - 1] = new Peminjaman(this, buku, tanggalPeminjaman, "-", getDenda(), true);
+            buku.setStok(buku.getStok() - 1);
+            Buku.tambahPeminjam(this);
+            return getNama() + " berhasil meminjam Buku " + buku.getJudul() + "!";
         }
-        daftarPeminjaman = tempArr;
-        daftarPeminjaman[daftarPeminjaman.length - 1] = new Peminjaman(this, buku, tanggalPeminjaman, "-", getDenda(), true);
-        buku.setStok(buku.getStok() - 1);
-        return getNama() + " berhasil meminjam Buku " + buku.getJudul() + "!";
     }
 
-    public long getBATAS_MAKSIMAL_DENDA() {
-        return BATAS_MAKSIMAL_DENDA;
+    public String getProgramStudi() {
+        return programStudi;
     }
 
-    public int getBATAS_JUMLAH_PEMINJAMAN_BUKU() {
-        return BATAS_JUMLAH_PEMINJAMAN_BUKU;
+    public String getAngkatan(){
+        return angkatan;
+    }
+
+    public String getTanggalLahir(){
+        return tanggalLahir;
     }
 }

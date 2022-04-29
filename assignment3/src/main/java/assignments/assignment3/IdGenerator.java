@@ -1,51 +1,10 @@
 package assignments.assignment3;
 
 import java.util.HashMap;
-import java.util.Scanner;
 
 public class IdGenerator {
     static HashMap<Character, Integer> charToValue = new HashMap<>(36);
     static char[] valueToChar = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
-
-    /*
-     * Code pada method main tidak boleh diganti sama sekali!
-     */
-    public static void main(String[] args) {
-        buildMapCharToValue();
-        Scanner input = new Scanner(System.in);
-        System.out.println("Selamat Datang di Perpustakaan!");
-
-        boolean shouldTerminateProgram = false;
-
-        while (!shouldTerminateProgram) {
-            printMenu();
-            System.out.print("Menu yang anda pilih: ");
-            int menu = input.nextInt();
-            input.nextLine();
-
-            if (menu == 1) {
-                System.out.print("Program Studi: ");
-                String programStudi = input.nextLine();
-                System.out.print("Angkatan: ");
-                String angkatan = input.nextLine();
-                System.out.print("Tanggal Lahir: ");
-                String tanggalLahir = input.nextLine();
-
-                System.out.println(generateId(programStudi, angkatan, tanggalLahir));
-            } else if (menu == 2) {
-                System.out.print("ID Anggota: ");
-                String idAnggota = input.nextLine();
-
-                System.out.print("Validitas: ");
-                System.out.println(checkValidity(idAnggota));
-            } else {
-                shouldTerminateProgram = true;
-                System.out.println("Sampai jumpa!");
-            }
-        }
-
-        input.close();
-    }
 
     /*
      * Method buildMapCodeToNumber adalah method untuk membuat mapping reference numbers Code 93
@@ -97,12 +56,11 @@ public class IdGenerator {
         nomorKeanggotaanStr += getChecksum(nomorKeanggotaanStr); // Checksum "C"
         nomorKeanggotaanStr += getChecksum(nomorKeanggotaanStr); // Checksum "K"
 
-        return "ID Anggota: " + nomorKeanggotaanStr;
+        return nomorKeanggotaanStr;
     }
 
     private static boolean isValidProgramStudi(String programStudi) {
         if (programStudi.length() != 3) return false;
-
         if (programStudi.equals("SIK")) return true;
         if (programStudi.equals("SSI")) return true;
         if (programStudi.equals("MIK")) return true;

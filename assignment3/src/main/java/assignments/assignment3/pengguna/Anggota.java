@@ -8,13 +8,13 @@ import java.util.concurrent.TimeUnit;
 import assignments.assignment3.buku.Buku;
 import assignments.assignment3.buku.Peminjaman;
 
-public abstract class Anggota extends Pengguna implements Comparable <Anggota>{
+public abstract class Anggota extends Pengguna implements Comparable <Anggota>, CanBorrow{
     protected long denda;
     protected int poin;
     protected Peminjaman[] daftarPeminjaman;
     
-    public Anggota (String id, String nama, long denda, int poin){
-        super(id, nama);
+    public Anggota (String nama, long denda, int poin){
+        super(nama);
         this.denda = denda;
         this.poin = poin;
     }
@@ -35,10 +35,11 @@ public abstract class Anggota extends Pengguna implements Comparable <Anggota>{
         return "ID Anggota: " + getId()
                 + "\nNama Anggota: " + getNama()
                 + "\nTotal poin: " + poin
-                + "\nDenda: " + denda;
+                + "\nDenda: Rp" + denda;
     }
 
     public void detail() {
+        System.out.println("Riwayat Peminjaman Buku:");
         if (daftarPeminjaman != null) {
             for (int h = 1; h < daftarPeminjaman.length+1; h++) {
                 for (int i = 0; i < daftarPeminjaman.length; i++) {
@@ -86,29 +87,13 @@ public abstract class Anggota extends Pengguna implements Comparable <Anggota>{
         }
         if (daftarPeminjaman[indexLoanBook].getStatus() == true) {
             if (daftarPeminjaman != null) {
-                String d1 = loanDate;
-                String d2 = tanggalPengembalian;
-
-                String pattern = "dd/MM/yyyy";
-                SimpleDateFormat sdf = new SimpleDateFormat(pattern);
-
-                try {
-                    Date date1 = (Date) sdf.parse(d1);
-                    Date date2 = (Date) sdf.parse(d2);
-
-                    // get the difference between two dates in minutes
-                    long elapsedms = date1.getTime() - date2.getTime();
-                    long diff = TimeUnit.MINUTES.convert(elapsedms, TimeUnit.MILLISECONDS);
-                    if (diff > 7) {
-                        setDenda((diff - 7) * Peminjaman.DENDA_PER_HARI);
-                    }
-                    daftarPeminjaman[indexLoanBook].setStatus(false);
-                    buku.setStok(buku.getStok() + 1);
-                    setPoin(poin+buku.getKategori().getPoin());
-                    return "Buku " + buku.getJudul() + " berhasil dikembalikan oleh " + getNama() + " dengan denda Rp " + denda + "!";
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
+                daftarPeminjaman[indexLoanBook].setTanggalPengembalian(tanggalPengembalian);
+                long dendaPeminjaman = daftarPeminjaman[indexLoanBook].hitungDenda();
+                denda+=dendaPeminjaman;
+                daftarPeminjaman[indexLoanBook].setStatus(false);
+                buku.setStok(buku.getStok() + 1);
+                setPoin(poin+buku.getKategori().getPoin());
+                return "Buku " + buku.getJudul() + " berhasil dikembalikan oleh " + getNama() + " dengan denda Rp " + dendaPeminjaman + "!";
             }
             
         }

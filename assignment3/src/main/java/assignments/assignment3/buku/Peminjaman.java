@@ -2,6 +2,11 @@ package assignments.assignment3.buku;
 
 import assignments.assignment3.pengguna.Anggota;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
+
 public class Peminjaman {
     public final static long DENDA_PER_HARI = 3000;
     private Anggota anggota;
@@ -27,7 +32,32 @@ public class Peminjaman {
         this.denda = denda;
         this.status = status;
     }
-    
+
+    public long hitungDenda(){
+        String d1 = tanggalPeminjaman;
+        String d2 = tanggalPengembalian;
+
+        String pattern = "dd/MM/yyyy";
+        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+
+        try {
+            Date date1 = (Date) sdf.parse(d2);
+            Date date2 = (Date) sdf.parse(d1);
+
+            // get the difference between two dates in minutes
+            long elapsedms = date1.getTime() - date2.getTime();
+            long days_difference = (elapsedms / (1000*60*60*24)) % 365;
+            if (days_difference > 7) {
+                denda = ((days_difference - 7) * Peminjaman.DENDA_PER_HARI);
+            } else {
+                denda = 0;
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return denda;
+    }
+
     public Anggota getAnggota() {
         return anggota;
     }
@@ -38,6 +68,10 @@ public class Peminjaman {
 
     public String getTanggalPeminjaman() {
         return tanggalPeminjaman;
+    }
+
+    public void setTanggalPengembalian(String tanggalPengembalian) {
+        this.tanggalPengembalian = tanggalPengembalian;
     }
 
     public String getTanggalPengembalian() {

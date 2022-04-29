@@ -1,5 +1,6 @@
 package assignments.assignment3.buku;
 
+import assignments.assignment3.pengguna.Anggota;
 import assignments.assignment3.pengguna.CanBorrow;
 
 public class Buku{
@@ -9,15 +10,14 @@ public class Buku{
     private int stokAwal;
     private int stok;
     private Kategori kategori;
-    private CanBorrow[] daftarPeminjam;
+    private static CanBorrow[] daftarPeminjam;
 
     @Override
     public String toString() {
         return "Judul Buku: " + judul
                 + "\nPenulis Buku: " + penulis
                 + "\nPenerbit Buku: " + penerbit
-                + "\nKategori: " + kategori
-                + "\nPoin: " + kategori.getPoin();
+                + "\n" + kategori.toString();
     }
 
     public Buku(String judul, String penulis, String penerbit, int stokAwal, Kategori kategori){
@@ -26,9 +26,25 @@ public class Buku{
         this.penerbit = penerbit;
         this.stokAwal = stokAwal;
         this.kategori = kategori;
+        this.stok = stokAwal;
     }
 
-    public CanBorrow[] getDaftarPeminjam(){
+    public static void tambahPeminjam(Anggota peminjam){
+        if (daftarPeminjam==null){
+            CanBorrow[] dafarPeminjam = new CanBorrow[1];
+            dafarPeminjam[0] = (CanBorrow) peminjam;
+        }else {
+            CanBorrow[] tempArr = new CanBorrow[daftarPeminjam.length + 1];
+            for (int i = 0; i < daftarPeminjam.length; i++) {
+                tempArr[i] = daftarPeminjam[i];
+            }
+            tempArr[daftarPeminjam.length] = peminjam;
+            daftarPeminjam = tempArr;
+            daftarPeminjam[daftarPeminjam.length - 1] = (CanBorrow) peminjam;
+        }
+    }
+
+    public static CanBorrow[] getDaftarPeminjam(){
         return daftarPeminjam;
     }
 

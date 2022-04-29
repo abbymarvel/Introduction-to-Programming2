@@ -4,8 +4,7 @@ public abstract class Pengguna {
     private String id;
     private String nama;
 
-    Pengguna (String id, String nama){
-        this.id = id;
+     public Pengguna(String nama){
         this.nama = nama;
     }
 
