@@ -417,50 +417,27 @@ public class SistakaNG {
                 String penulis = input.nextLine();
                 System.out.print("Tanggal Peminjaman: ");
                 String tanggalPeminjaman = input.nextLine();
-                int jumlahMeminjam=0;
                 boolean statusKeberadaan = false;
                 boolean statusDiPinjam = false;
-                if (((Anggota) penggunaLoggedIn).getDaftarPeminjaman()!= null){
-                    for (Peminjaman pmjmn : ((Anggota) penggunaLoggedIn).getDaftarPeminjaman()){
-                        if (pmjmn.getStatus()==true){
-                            jumlahMeminjam+=1;
-                        }
-                    }
-            }
-                if (jumlahMeminjam == 3){
-                    System.out.println("Jumlah buku yang sedang dipinjam sudah mencapai batas maksimal");
-                }else{
-                    if (daftarbuku==null || daftarbuku.length==0){
-                        System.out.println("Buku " + judul + " oleh " + penulis + " tidak ditemukan");
-                    }else {
-                        for (int i = 0; i < daftarbuku.length; i++) {
-                            if (daftarbuku[i].getJudul().equalsIgnoreCase(judul) && daftarbuku[i].getPenulis().equalsIgnoreCase(penulis)) {
-                                Buku buku = daftarbuku[i];
-                                if (buku.getStok() > 0) {
-                                    statusKeberadaan = true;
-                                    if (((Anggota) penggunaLoggedIn).getDaftarPeminjaman()!= null){
-                                        for (Peminjaman pmjmn : ((Anggota) penggunaLoggedIn).getDaftarPeminjaman()){
-                                            if (pmjmn.getBuku().equals(buku) && pmjmn.getStatus()==true){
-                                                statusDiPinjam = true;
-                                            }
-                                        }
-                                    }
-                                    if (statusDiPinjam==false){
-                                        System.out.println(((Anggota) penggunaLoggedIn).pinjam(buku, tanggalPeminjaman));
-                                    } else{
-                                        statusKeberadaan = true;
-                                        System.out.println("Buku " + judul + " oleh " + penulis + " sedang dipinjam");
-                                    }
-                                } else {
-                                    System.out.println("Buku " + judul + " oleh " + penulis + " tidak tersedia");
-                                }
+                if (daftarbuku==null || daftarbuku.length==0){
+                    System.out.println("Buku " + judul + " oleh " + penulis + " tidak ditemukan");
+                }else {
+                    for (int i = 0; i < daftarbuku.length; i++) {
+                        if (daftarbuku[i].getJudul().equalsIgnoreCase(judul) && daftarbuku[i].getPenulis().equalsIgnoreCase(penulis)) {
+                            Buku buku = daftarbuku[i];
+                            if (buku.getStok() > 0) {
+                                statusKeberadaan = true;
+                                System.out.println(((Anggota) penggunaLoggedIn).pinjam(buku, tanggalPeminjaman));
+                            } else {
+                                System.out.println("Buku " + judul + " oleh " + penulis + " tidak tersedia");
                             }
                         }
-                        if (statusKeberadaan == false) {
-                            System.out.println("Buku " + judul + " oleh " + penulis + " tidak ditemukan");
-                        }
+                    }
+                    if (statusKeberadaan == false) {
+                        System.out.println("Buku " + judul + " oleh " + penulis + " tidak ditemukan");
                     }
                 }
+                
             } else if (command == 2) {
                 // TODO: Implementasikan menu-nya
                 System.out.println("---------- Pengembalian Buku ----------");
@@ -486,7 +463,7 @@ public class SistakaNG {
                 System.out.println("---------- Pembayaran Denda ----------");
                 System.out.print("Jumlah: ");
                 String jumlahPembayaran = input.nextLine();
-                ((Anggota) penggunaLoggedIn).bayarDenda(Long.parseLong(jumlahPembayaran));
+                System.out.println(((Anggota) penggunaLoggedIn).bayarDenda(Long.parseLong(jumlahPembayaran)));
             } else if (command == 4) {
                 // TODO: Implementasikan menu-nya
                 System.out.println((Anggota) penggunaLoggedIn);

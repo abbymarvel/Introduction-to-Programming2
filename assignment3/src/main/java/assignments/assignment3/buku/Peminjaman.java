@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
+import java.text.SimpleDateFormat;
 
 public class Peminjaman {
     public final static long DENDA_PER_HARI = 3000;
@@ -35,25 +36,19 @@ public class Peminjaman {
     }
 
     public long hitungDenda(){
-        String d1 = tanggalPeminjaman;
-        String d2 = tanggalPengembalian;
-
-        String pattern = "dd/MM/yyyy";
-        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+        long denda = 0;
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 
         try {
-            Date date1 = (Date) sdf.parse(d2);
-            Date date2 = (Date) sdf.parse(d1);
+            Date tanggalMinjam = format.parse(getTanggalPeminjaman());
+            Date tanggalBalik = format.parse(getTanggalPengembalian());
 
             // get the difference between two dates in minutes
-            long elapsedms = date1.getTime() - date2.getTime();
-            long days_difference = (elapsedms / (1000*60*60*24)) % 365;
-            if (days_difference > 7) {
-                denda = ((days_difference - 7) * Peminjaman.DENDA_PER_HARI);
-            } else {
-                denda = 0;
-            }
-        } catch (ParseException e) {
+            long diff = Math.abs(tanggalMinjam.getTime() - tanggalBalik.getTime()) / (1000*60*60*24);
+            if (diff - 7 > 0) {
+                denda = ((diff - 7) * Peminjaman.DENDA_PER_HARI);
+            } 
+        } catch (java.text.ParseException e) {
             e.printStackTrace();
         }
         return denda;

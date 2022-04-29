@@ -25,24 +25,44 @@ public class Mahasiswa extends Anggota{
     }
 
     public String pinjam(Buku buku, String tanggalPeminjaman){
-        if (this.getDenda()<=BATAS_MAKSIMAL_DENDA){
-            if (daftarPeminjaman==null){
-                daftarPeminjaman = new Peminjaman[1];
-                daftarPeminjaman[0] = new Peminjaman(this, buku, tanggalPeminjaman, "-", getDenda(), true);
-                buku.setStok(buku.getStok() - 1);
-                return getNama() + " berhasil meminjam Buku " + buku.getJudul() + "!";
-            }else {
-                Peminjaman[] tempArr = new Peminjaman[daftarPeminjaman.length + 1];
-                for (int i = 0; i < daftarPeminjaman.length; i++) {
-                    tempArr[i] = daftarPeminjaman[i];
+        int pemijamanAktif = 0;
+        boolean apakahDiPinjam = false;
+        if (daftarPeminjaman!=null){
+            for (Peminjaman p: daftarPeminjaman){
+                if (p.getStatus() == true){
+                    pemijamanAktif++;
                 }
-                daftarPeminjaman = tempArr;
-                daftarPeminjaman[daftarPeminjaman.length - 1] = new Peminjaman(this, buku, tanggalPeminjaman, "-", getDenda(), true);
-                buku.setStok(buku.getStok() - 1);
-                return getNama() + " berhasil meminjam Buku " + buku.getJudul() + "!";
+                if (p.getBuku().equals(buku) && p.getStatus() == true){
+                    apakahDiPinjam = true;
+                }
             }
+        }
+        if (pemijamanAktif==BATAS_JUMLAH_PEMINJAMAN_BUKU){
+            return "Jumlah buku yang sedang dipinjam sudah mencapai batas maksimal";
         } else{
-            return "Denda lebih dari Rp " + BATAS_MAKSIMAL_DENDA;
+            if (this.getDenda()<=BATAS_MAKSIMAL_DENDA){
+                if (daftarPeminjaman==null){
+                    daftarPeminjaman = new Peminjaman[1];
+                    daftarPeminjaman[0] = new Peminjaman(this, buku, tanggalPeminjaman, "-", getDenda(), true);
+                    buku.setStok(buku.getStok() - 1);
+                    return getNama() + " berhasil meminjam Buku " + buku.getJudul() + "!";
+                }else {
+                    if (apakahDiPinjam == false){
+                        Peminjaman[] tempArr = new Peminjaman[daftarPeminjaman.length + 1];
+                        for (int i = 0; i < daftarPeminjaman.length; i++) {
+                            tempArr[i] = daftarPeminjaman[i];
+                        }
+                        daftarPeminjaman = tempArr;
+                        daftarPeminjaman[daftarPeminjaman.length - 1] = new Peminjaman(this, buku, tanggalPeminjaman, "-", getDenda(), true);
+                        buku.setStok(buku.getStok() - 1);
+                        return getNama() + " berhasil meminjam Buku " + buku.getJudul() + "!";
+                    } else{
+                        return "Buku " + buku.getJudul() + " oleh " + buku.getPenulis() + " sedang dipinjam";
+                    }
+                }
+            } else{
+                return "Denda lebih dari Rp " + BATAS_MAKSIMAL_DENDA;
+            }
         }
     }
 

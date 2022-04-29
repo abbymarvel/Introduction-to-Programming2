@@ -57,39 +57,44 @@ public abstract class Anggota extends Pengguna implements Comparable <Anggota>, 
 
     public String bayarDenda(long jumlahBayar){
         if (denda==0){
-            return getNama() + "tidak memiliki denda";
-        }else if (jumlahBayar>denda){
-            setDenda(0);
-            return getNama() + " berhasil membayar lunas denda"
+            return getNama() + " tidak memiliki denda";
+        }else if (jumlahBayar>=denda){
+            String out =  getNama() + " berhasil membayar lunas denda"
                     +"\nJumlah kembalian: Rp " + (jumlahBayar - denda);
+            setDenda(0);
+            return out;
         } else {
-            setDenda(denda-jumlahBayar);
-            return getNama() + " berhasil membayar denda sebesar Rp " + jumlahBayar
+            String out =  getNama() + " berhasil membayar denda sebesar Rp " + jumlahBayar
                     + "\nSisa denda saat ini: Rp " + denda;
-
+            setDenda((denda-jumlahBayar));
+            return out;
         }
     }
 
     public String kembali(Buku buku, String tanggalPengembalian){
         String loanDate = "";
         int indexLoanBook = 0;
+        boolean statusMeminjam = false;
         for (int j = 0; j<daftarPeminjaman.length; j++){
             if (daftarPeminjaman[j].getBuku().equals(buku)){
                 loanDate = daftarPeminjaman[j].getTanggalPeminjaman();
                 indexLoanBook = j;
+                statusMeminjam = true;
             }
         }
-        if (daftarPeminjaman[indexLoanBook].getStatus() == true) {
-            if (daftarPeminjaman != null) {
-                daftarPeminjaman[indexLoanBook].setTanggalPengembalian(tanggalPengembalian);
-                long dendaPeminjaman = daftarPeminjaman[indexLoanBook].hitungDenda();
-                denda+=dendaPeminjaman;
-                daftarPeminjaman[indexLoanBook].setStatus(false);
-                buku.setStok(buku.getStok() + 1);
-                setPoin(poin+buku.getKategori().getPoin());
-                return "Buku " + buku.getJudul() + " berhasil dikembalikan oleh " + getNama() + " dengan denda Rp " + dendaPeminjaman + "!";
+        if (statusMeminjam == true){
+            if (daftarPeminjaman[indexLoanBook].getStatus() == true) {
+                if (daftarPeminjaman != null) {
+                    daftarPeminjaman[indexLoanBook].setTanggalPengembalian(tanggalPengembalian);
+                    long dendaPeminjaman = daftarPeminjaman[indexLoanBook].hitungDenda();
+                    denda += dendaPeminjaman;
+                    daftarPeminjaman[indexLoanBook].setStatus(false);
+                    buku.setStok(buku.getStok() + 1);
+                    setPoin(poin+buku.getKategori().getPoin());
+                    return "Buku " + buku.getJudul() + " berhasil dikembalikan oleh " + getNama() + " dengan denda Rp " + dendaPeminjaman + "!";
+                }
+                
             }
-            
         }
         return "Buku " + daftarPeminjaman[indexLoanBook].getBuku().getJudul() + " tidak sedang dipinjam oleh " + getNama();
     }
