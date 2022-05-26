@@ -16,7 +16,7 @@ public class PengembalianPanel extends SistakaPanel {
     JComboBox<String> JCBBuku = new JComboBox<>();
     public PengembalianPanel(HomeGUI main) {
         super(main);
-        // TODO: Implementasikan hal-hal yang diperlukan
+        // Menginisiasi component-component yang dibutuhkan sesuai dengan dokumen soal
         JPanel panelPengembalian = new JPanel();
         panelPengembalian.setLayout(new GridLayout(6, 1));
 
@@ -40,6 +40,7 @@ public class PengembalianPanel extends SistakaPanel {
         JButton buttonKembalikan = new JButton("Kembalikan");
         JButton buttonKembali = new JButton("Kembali");
 
+        // Menambahkan component-component yang sudah diinisiasi di atas ke panel
         panelForButton.add(buttonKembalikan);
         panelForButton.add(buttonKembali);
 
@@ -50,8 +51,10 @@ public class PengembalianPanel extends SistakaPanel {
         panelPengembalian.add(jtfTanggalPengembalian);
         panelPengembalian.add(panelForButton);
 
+        // Menambahkan panel ke dalam frame
         add(panelPengembalian);
 
+        // Melakukan handle jika user berinteraksi dengan buttonKembalikan
         buttonKembalikan.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent E){
@@ -65,6 +68,7 @@ public class PengembalianPanel extends SistakaPanel {
         }
         );
 
+        // Melakukan handle jika user berinteraksi dengan buttonKembali
         buttonKembali.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent E){

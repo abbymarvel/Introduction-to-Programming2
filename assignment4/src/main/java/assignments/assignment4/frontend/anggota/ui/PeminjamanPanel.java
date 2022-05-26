@@ -17,7 +17,7 @@ public class PeminjamanPanel extends SistakaPanel {
     JComboBox<String> JCBBuku = new JComboBox<>();
     public PeminjamanPanel(HomeGUI main) {
         super(main);
-        // TODO: Implementasikan hal-hal yang diperlukan
+        // Menginisiasi component-component yang dibutuhkan sesuai dengan dokumen soal
         JPanel panelPeminjaman = new JPanel();
         panelPeminjaman.setLayout(new GridLayout(6, 1));
 
@@ -41,6 +41,7 @@ public class PeminjamanPanel extends SistakaPanel {
         JButton buttonPinjam = new JButton("Pinjam");
         JButton buttonKembali = new JButton("Kembali");
 
+        // Menambahkan component-component yang sudah diinisiasi di atas ke panel
         panelForButton.add(buttonPinjam);
         panelForButton.add(buttonKembali);
 
@@ -51,8 +52,10 @@ public class PeminjamanPanel extends SistakaPanel {
         panelPeminjaman.add(jtfTanggalPeminjaman);
         panelPeminjaman.add(panelForButton);
 
+        // Menambahkan panel ke dalam frame
         add(panelPeminjaman);
 
+        // Melakukan handle jika user berinteraksi dengan buttonPinjam
         buttonPinjam.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent E){
@@ -66,6 +69,7 @@ public class PeminjamanPanel extends SistakaPanel {
         }
         );
 
+        // Melakukan handle jika user berinteraksi dengan buttonKembali
         buttonKembali.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent E){

@@ -15,7 +15,7 @@ import java.util.List;
 public class TambahKategoriPanel extends SistakaPanel {
     public TambahKategoriPanel(HomeGUI main) {
         super(main);
-        // TODO: Implementasikan hal-hal yang diperlukan
+        // Menginisiasi component-component yang dibutuhkan sesuai dengan dokumen soal
         JPanel paneltambahKategori = new JPanel();
         paneltambahKategori.setLayout(new GridLayout(6, 1));
 
@@ -41,6 +41,7 @@ public class TambahKategoriPanel extends SistakaPanel {
         JButton buttonTambah = new JButton("Tambah");
         JButton buttonKembali = new JButton("Kembali");
 
+        // Menambahkan component-component yang sudah diinisiasi di atas ke panel
         panelForButton.add(buttonTambah);
         panelForButton.add(buttonKembali);
 
@@ -51,8 +52,10 @@ public class TambahKategoriPanel extends SistakaPanel {
         paneltambahKategori.add(jtfPoin);
         paneltambahKategori.add(panelForButton);
 
+        // Menambahkan panel ke dalam frame
         add(paneltambahKategori);
 
+        // Melakukan handle jika user berinteraksi dengan buttonTambah
         buttonTambah.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent E){
@@ -69,6 +72,7 @@ public class TambahKategoriPanel extends SistakaPanel {
         }
         );
 
+        // Melakukan handle jika user berinteraksi dengan buttonKembali
         buttonKembali.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent E){

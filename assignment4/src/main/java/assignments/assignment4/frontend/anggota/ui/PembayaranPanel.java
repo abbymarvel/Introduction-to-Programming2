@@ -15,7 +15,7 @@ import java.util.List;
 public class PembayaranPanel extends SistakaPanel {
     public PembayaranPanel(HomeGUI main) {
         super(main);
-        // TODO: Implementasikan hal-hal yang diperlukan
+        // Menginisiasi component-component yang dibutuhkan sesuai dengan dokumen soal
         JPanel panelPembayaran = new JPanel();
         panelPembayaran.setLayout(new GridLayout(4, 1));
 
@@ -35,6 +35,7 @@ public class PembayaranPanel extends SistakaPanel {
         JButton buttonBayar = new JButton("Bayar");
         JButton buttonKembali = new JButton("Kembali");
 
+        // Menambahkan component-component yang sudah diinisiasi di atas ke panel
         panelForButton.add(buttonBayar);
         panelForButton.add(buttonKembali);
 
@@ -43,8 +44,10 @@ public class PembayaranPanel extends SistakaPanel {
         panelPembayaran.add(jtfJumlahDenda);
         panelPembayaran.add(panelForButton);
 
+        // Menambahkan panel ke dalam frame
         add(panelPembayaran);
 
+        // Melakukan handle jika user berinteraksi dengan buttonBayar
         buttonBayar.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent E){
@@ -58,6 +61,7 @@ public class PembayaranPanel extends SistakaPanel {
         }
         );
 
+        // Melakukan handle jika user berinteraksi dengan buttonKembali
         buttonKembali.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent E){

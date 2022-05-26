@@ -16,7 +16,7 @@ public class HapusBukuPanel extends SistakaPanel {
     JComboBox<String> JCBBuku = new JComboBox<>();
     public HapusBukuPanel(HomeGUI main) {
         super(main);
-        // TODO: Implementasikan hal-hal yang diperlukan
+        // Menginisiasi component-component yang dibutuhkan sesuai dengan dokumen soal
         JPanel panelhapusBuku = new JPanel();
         panelhapusBuku.setLayout(new GridLayout(4, 1));
 
@@ -34,6 +34,7 @@ public class HapusBukuPanel extends SistakaPanel {
         JButton buttonHapus = new JButton("Hapus");
         JButton buttonKembali = new JButton("Kembali");
 
+        // Menambahkan component-component yang sudah diinisiasi di atas ke panel
         panelForButton.add(buttonHapus);
         panelForButton.add(buttonKembali);
 
@@ -42,8 +43,10 @@ public class HapusBukuPanel extends SistakaPanel {
         panelhapusBuku.add(JCBBuku);
         panelhapusBuku.add(panelForButton);
 
+        // Menambahkan panel ke dalam frame
         add(panelhapusBuku);
 
+        // Melakukan handle jika user berinteraksi dengan buttonHapus
         buttonHapus.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent E){
@@ -58,6 +61,7 @@ public class HapusBukuPanel extends SistakaPanel {
         }
         );
 
+        // Melakukan handle jika user berinteraksi dengan buttonKembali
         buttonKembali.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent E){

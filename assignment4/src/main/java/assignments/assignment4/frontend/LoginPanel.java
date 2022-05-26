@@ -6,6 +6,8 @@ import assignments.assignment4.backend.pengguna.Pengguna;
 import assignments.assignment4.backend.pengguna.Staf;
 
 import javax.swing.*;
+import javax.swing.plaf.DimensionUIResource;
+
 import java.awt.*;
 import java.awt.event.*;
 
@@ -13,23 +15,30 @@ import java.awt.event.*;
 public class LoginPanel extends SistakaPanel {
     public LoginPanel(HomeGUI main){
         super(main);
-        // TODO: Implementasikan hal-hal yang diperlukan 
+        // Menginisiasi component-component yang dibutuhkan sesuai dengan dokumen soal        
         JPanel loginPanel = new JPanel();
-        loginPanel.setLayout(new GridLayout(3, 1));
+        loginPanel.setLayout(new GridLayout(3,1,5,5));
 
         JLabel labelWelcome = new JLabel("Masukan ID Anda untuk login ke sistem");
-        labelWelcome.setFont(new Font("Times New Roman", Font.PLAIN, 36));
+        labelWelcome.setFont(new Font("Times New Roman", Font.PLAIN, 12));
+        labelWelcome.setHorizontalAlignment(JLabel. CENTER);
+        
 
         JTextField jtfID = new JTextField("");
+        jtfID.setPreferredSize(new Dimension(400, 30));
 
         JButton buttonLogin = new JButton("Login");
+        buttonLogin.setPreferredSize(new Dimension(100, 30));
 
+        // Menambahkan component-component yang sudah diinisiasi di atas ke panel
         loginPanel.add(labelWelcome);
-        loginPanel.add(jtfID);
+        loginPanel.add(jtfID);;
         loginPanel.add(buttonLogin);
         
-        add(loginPanel);
+        // Menambahkan panel ke dalam frame
+        add(loginPanel, BorderLayout.CENTER);
 
+        // Melakukan handle jika user berinteraksi dengan buttonLogin
         buttonLogin.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent E){

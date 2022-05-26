@@ -18,7 +18,7 @@ public class DaftarPeminjamPanel extends SistakaPanel {
 
     public DaftarPeminjamPanel(HomeGUI main) {
         super(main);
-        // TODO: Implementasikan hal-hal yang diperlukan
+        // Menginisiasi component-component yang dibutuhkan sesuai dengan dokumen soal
         JPanel panelDaftarPeminjam = new JPanel();
         panelDaftarPeminjam.setLayout(new GridLayout(5, 1));
 
@@ -36,6 +36,7 @@ public class DaftarPeminjamPanel extends SistakaPanel {
         JButton buttonLihat = new JButton("Lihat");
         JButton buttonKembali = new JButton("Kembali");
 
+        // Menambahkan component-component yang sudah diinisiasi di atas ke panel
         panelForButton.add(buttonLihat);
         panelForButton.add(buttonKembali);
 
@@ -45,8 +46,10 @@ public class DaftarPeminjamPanel extends SistakaPanel {
         panelDaftarPeminjam.add(daftarPeminjam);
         panelDaftarPeminjam.add(panelForButton);
         
+        // Menambahkan panel ke dalam frame
         add(panelDaftarPeminjam);
 
+        // Melakukan handle jika user berinteraksi dengan buttonLihat
         buttonLihat.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent E){
@@ -60,6 +63,7 @@ public class DaftarPeminjamPanel extends SistakaPanel {
         }
         );
 
+        // Melakukan handle jika user berinteraksi dengan buttonKembali
         buttonKembali.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent E){

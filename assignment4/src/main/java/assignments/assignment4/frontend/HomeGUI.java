@@ -23,6 +23,7 @@ public class HomeGUI {
         mainPanel.setLayout(layout);
         initGUI();
         frame.setContentPane(mainPanel);
+        frame.setLocationRelativeTo(null);
     }
 
     private void initGUI() {

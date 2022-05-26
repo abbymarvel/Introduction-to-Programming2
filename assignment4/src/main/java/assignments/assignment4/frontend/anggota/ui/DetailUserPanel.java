@@ -16,7 +16,7 @@ public class DetailUserPanel extends SistakaPanel {
     JLabel detailUser= new JLabel("");
     public DetailUserPanel(HomeGUI main) {
         super(main);
-        // TODO: Implementasikan hal-hal yang diperlukan
+        // Menginisiasi component-component yang dibutuhkan sesuai dengan dokumen soal
         JPanel panelDetailUser = new JPanel();
         panelDetailUser.setLayout(new GridLayout(3, 1));
 
@@ -26,12 +26,15 @@ public class DetailUserPanel extends SistakaPanel {
 
         JButton buttonKembali = new JButton("Kembali");
 
+        // Menambahkan component-component yang sudah diinisiasi di atas ke panel
         panelDetailUser.add(labelDetailAnggota);
         panelDetailUser.add(detailUser);
         panelDetailUser.add(buttonKembali);
 
+        // Menambahkan panel ke dalam frame
         add(panelDetailUser);
 
+        // Melakukan handle jika user berinteraksi dengan buttonKembali
         buttonKembali.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent E){

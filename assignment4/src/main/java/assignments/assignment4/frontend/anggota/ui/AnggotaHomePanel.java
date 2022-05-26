@@ -14,7 +14,8 @@ public class AnggotaHomePanel extends SistakaPanel {
     JLabel labelWelcome = new JLabel("");
     public AnggotaHomePanel(HomeGUI main) {
         super(main);
-        // TODO: Implementasikan hal-hal yang diperlukan
+        // Menginisiasi component-component yang dibutuhkan sesuai dengan dokumen soal
+
         JPanel panelAnggotaHome = new JPanel();
         panelAnggotaHome.setLayout(new GridLayout(6, 1));
 
@@ -26,6 +27,7 @@ public class AnggotaHomePanel extends SistakaPanel {
         JButton buttonDetailAnggota = new JButton("Detail Anggota");
         JButton buttonLogout = new JButton("Logout");
 
+        // Menambahkan component-component yang sudah diinisiasi di atas ke panel
         panelAnggotaHome.add(labelWelcome);
         panelAnggotaHome.add(buttonPeminjaman);
         panelAnggotaHome.add(buttonPengembalian);
@@ -33,8 +35,10 @@ public class AnggotaHomePanel extends SistakaPanel {
         panelAnggotaHome.add(buttonDetailAnggota);
         panelAnggotaHome.add(buttonLogout);
 
+        // Menambahkan panel ke dalam frame
         add(panelAnggotaHome);
 
+        // Melakukan handle jika user berinteraksi dengan buttonPeminjaman
         buttonPeminjaman.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent E){
@@ -43,6 +47,7 @@ public class AnggotaHomePanel extends SistakaPanel {
         }
         );
 
+        // Melakukan handle jika user berinteraksi dengan buttonPengembalian
         buttonPengembalian.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent E){
@@ -51,6 +56,7 @@ public class AnggotaHomePanel extends SistakaPanel {
         }
         );
 
+        // Melakukan handle jika user berinteraksi dengan buttonPembayaranDenda
         buttonPembayaranDenda.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent E){
@@ -59,6 +65,7 @@ public class AnggotaHomePanel extends SistakaPanel {
         }
         );
 
+        // Melakukan handle jika user berinteraksi dengan buttonDetailAnggota
         buttonDetailAnggota.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent E){
@@ -67,6 +74,7 @@ public class AnggotaHomePanel extends SistakaPanel {
         }
         );
 
+        // Melakukan handle jika user berinteraksi dengan buttonLogout
         buttonLogout.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent E){

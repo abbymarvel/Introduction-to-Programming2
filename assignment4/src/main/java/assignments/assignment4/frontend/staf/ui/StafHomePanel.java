@@ -13,9 +13,9 @@ public class StafHomePanel extends SistakaPanel {
     JLabel labelWelcome = new JLabel("");
     public StafHomePanel(HomeGUI main) {
         super(main);
-        // TODO: Implementasikan hal-hal yang diperlukan
+        // Menginisiasi component-component yang dibutuhkan sesuai dengan dokumen soal
         JPanel panelStafHome = new JPanel();
-        panelStafHome.setLayout(new GridLayout(10, 1));
+        panelStafHome.setLayout(new GridLayout(10, 1, 5, 5));
 
         labelWelcome.setFont(new Font("Times New Roman", Font.PLAIN, 36));
 
@@ -29,6 +29,7 @@ public class StafHomePanel extends SistakaPanel {
         JButton buttonDaftarPeminjamanBuku = new JButton("DaftarPeminjamanBuku");
         JButton buttonLogout = new JButton("Logout");
 
+        // Menambahkan component-component yang sudah diinisiasi di atas ke panel
         panelStafHome.add(labelWelcome);
         panelStafHome.add(buttonTambahMahasiswa);
         panelStafHome.add(buttonTambahDosen);
@@ -40,8 +41,10 @@ public class StafHomePanel extends SistakaPanel {
         panelStafHome.add(buttonDaftarPeminjamanBuku);
         panelStafHome.add(buttonLogout);
 
+        // Menambahkan panel ke dalam frame
         add(panelStafHome);
 
+        // Melakukan handle jika user berinteraksi dengan buttonTambahMahasiswa
         buttonTambahMahasiswa.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent E){
@@ -50,6 +53,7 @@ public class StafHomePanel extends SistakaPanel {
         }
         );
 
+        // Melakukan handle jika user berinteraksi dengan buttonTambahDosen
         buttonTambahDosen.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent E){
@@ -58,6 +62,7 @@ public class StafHomePanel extends SistakaPanel {
         }
         );
 
+        // Melakukan handle jika user berinteraksi dengan buttonTambahKategori
         buttonTambahKategori.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent E){
@@ -66,6 +71,7 @@ public class StafHomePanel extends SistakaPanel {
         }
         );
 
+        // Melakukan handle jika user berinteraksi dengan buttonTambahBuku
         buttonTambahBuku.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent E){
@@ -73,7 +79,8 @@ public class StafHomePanel extends SistakaPanel {
             }
         }
         );
-
+        
+        // Melakukan handle jika user berinteraksi dengan buttonHapusBuku
         buttonHapusBuku.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent E){
@@ -82,6 +89,7 @@ public class StafHomePanel extends SistakaPanel {
         }
         );
 
+        // Melakukan handle jika user berinteraksi dengan button3PeringkatPertama
         button3PeringkatPertama.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent E){
@@ -90,6 +98,7 @@ public class StafHomePanel extends SistakaPanel {
         }
         );
 
+        // Melakukan handle jika user berinteraksi dengan buttonDetailAnggota
         buttonDetailAnggota.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent E){
@@ -98,6 +107,7 @@ public class StafHomePanel extends SistakaPanel {
         }
         );
 
+        // Melakukan handle jika user berinteraksi dengan buttonDaftarPeminjamanBuku
         buttonDaftarPeminjamanBuku.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent E){
@@ -106,6 +116,7 @@ public class StafHomePanel extends SistakaPanel {
         }
         );
 
+        // Melakukan handle jika user berinteraksi dengan buttonLogout
         buttonLogout.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent E){

@@ -16,7 +16,7 @@ import java.util.List;
 public class TambahDosenPanel extends SistakaPanel {
     public TambahDosenPanel(HomeGUI main) {
         super(main);
-        // TODO: Implementasikan hal-hal yang diperlukan
+        // Menginisiasi component-component yang dibutuhkan sesuai dengan dokumen soal
         JPanel paneltambahDosen = new JPanel();
         paneltambahDosen.setLayout(new GridLayout(4, 1));
 
@@ -37,6 +37,7 @@ public class TambahDosenPanel extends SistakaPanel {
         JButton buttonTambah = new JButton("Tambah");
         JButton buttonKembali = new JButton("Kembali");
 
+        // Menambahkan component-component yang sudah diinisiasi di atas ke panel
         panelForButton.add(buttonTambah);
         panelForButton.add(buttonKembali);
 
@@ -45,8 +46,10 @@ public class TambahDosenPanel extends SistakaPanel {
         paneltambahDosen.add(jtfNama);
         paneltambahDosen.add(panelForButton);
 
+        // Menambahkan panel ke dalam frame
         add(paneltambahDosen);
 
+        // Melakukan handle jika user berinteraksi dengan buttonTambah
         buttonTambah.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent E){
@@ -62,6 +65,7 @@ public class TambahDosenPanel extends SistakaPanel {
         }
         );
 
+        // Melakukan handle jika user berinteraksi dengan buttonKembali
         buttonKembali.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent E){
