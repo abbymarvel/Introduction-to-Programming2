@@ -5,20 +5,83 @@ import assignments.assignment4.frontend.SistakaPanel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.List;
 
 // TODO: Implementasikan hal-hal yang diperlukan
 public class AnggotaHomePanel extends SistakaPanel {
+    JLabel labelWelcome = new JLabel("");
     public AnggotaHomePanel(HomeGUI main) {
         super(main);
         // TODO: Implementasikan hal-hal yang diperlukan
+        JPanel panelAnggotaHome = new JPanel();
+        panelAnggotaHome.setLayout(new GridLayout(6, 1));
+
+        labelWelcome.setFont(new Font("Times New Roman", Font.PLAIN, 36));
+
+        JButton buttonPeminjaman = new JButton("Peminjaman");
+        JButton buttonPengembalian = new JButton("Pengembalian");
+        JButton buttonPembayaranDenda = new JButton("Pembayaran Denda");
+        JButton buttonDetailAnggota = new JButton("Detail Anggota");
+        JButton buttonLogout = new JButton("Logout");
+
+        panelAnggotaHome.add(labelWelcome);
+        panelAnggotaHome.add(buttonPeminjaman);
+        panelAnggotaHome.add(buttonPengembalian);
+        panelAnggotaHome.add(buttonPembayaranDenda);
+        panelAnggotaHome.add(buttonDetailAnggota);
+        panelAnggotaHome.add(buttonLogout);
+
+        add(panelAnggotaHome);
+
+        buttonPeminjaman.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent E){
+                main.setPanel("peminjaman");
+            }
+        }
+        );
+
+        buttonPengembalian.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent E){
+                main.setPanel("pengembalian");
+            }
+        }
+        );
+
+        buttonPembayaranDenda.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent E){
+                main.setPanel("pembayaran");
+            }
+        }
+        );
+
+        buttonDetailAnggota.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent E){
+                main.setPanel("detailUser");
+            }
+        }
+        );
+
+        buttonLogout.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent E){
+                main.setPanel("login");
+            }
+        }
+        );
     }
 
     @Override
     public void refresh() {
         // TODO: Implementasikan hal-hal yang diperlukan
         // Jika tidak diperlukan, Anda dapat mengabaikannya (kosongkan method ini)
+        labelWelcome.setText("Selamat datang kembali " + main.getUser().getNama() + "!");
+
     }
 
 }
